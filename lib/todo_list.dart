@@ -15,6 +15,8 @@ class _TodoListState extends State<TodoList> {
   // ignore: unused_field
   final List<Todo> _todos = <Todo>[];
 
+  void _displayADialog() {}
+
   String title = "Todo App";
 
   @override
@@ -33,7 +35,7 @@ class _TodoListState extends State<TodoList> {
               child: Text("It's a bit empty here, is it not?"),
             ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () => _displayADialog(),
           tooltip: 'Add a Todo',
           child: const Icon(Icons.add)),
     );
