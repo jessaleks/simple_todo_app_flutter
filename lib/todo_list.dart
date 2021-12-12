@@ -44,12 +44,15 @@ class _TodoListState extends State<TodoList> {
         leading: Checkbox(onChanged: (selected) {}, value: todo.isComplete),
         title: Text(todo.name));
   }
+
   // Come up with a way to create a dialogue
   void _displayAddTodoDialog(BuildContext context) {
     if (Platform.isIOS) {
       showCupertinoDialog(
           context: context,
-          builder: (context) => (child: child));
+          builder: (context) {
+            throw Exception();
+          });
     }
     showDialog(context: context, builder: (context) => Dialog());
   }
