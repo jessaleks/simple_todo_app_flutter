@@ -1,5 +1,7 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_app_flutter/todo_list_item.dart';
 import './models/todo.dart';
 
 class TodoList extends StatefulWidget {
@@ -13,9 +15,7 @@ class _TodoListState extends State<TodoList> {
   // ignore: unused_field
   final TextEditingController _textEditingController = TextEditingController();
   // ignore: unused_field
-  final List<Todo> _todos = <Todo>[];
-
-  void _displayADialog() {}
+  final List<Todo> todos = <Todo>[];
 
   String title = "Todo App";
 
@@ -24,20 +24,33 @@ class _TodoListState extends State<TodoList> {
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       // ignore: prefer_is_empty
-      body: _todos.length > 0
-          ? ListView(
-              padding: const EdgeInsets.symmetric(vertical: 4.0),
-              children: const [
-                  TodoListItem(),
-                  TodoListItem(),
-                ])
-          : const Center(
-              child: Text("It's a bit empty here, is it not?"),
-            ),
+      body: _buildTodoList(),
       floatingActionButton: FloatingActionButton(
-          onPressed: () => _displayADialog(),
+          onPressed: () => _displayAddTodoDialog(context),
           tooltip: 'Add a Todo',
           child: const Icon(Icons.add)),
     );
+  }
+
+  Widget _buildTodoList() {
+    return ListView.builder(
+        itemCount: todos.length,
+        itemBuilder: (context, index) => _buildTodoTile(todos[index]));
+  }
+
+  Widget _buildTodoTile(Todo todo) {
+    return ListTile(
+        key: Key(todo.id),
+        leading: Checkbox(onChanged: (selected) {}, value: todo.isComplete),
+        title: Text(todo.name));
+  }
+  // Come up with a way to create a dialogue
+  void _displayAddTodoDialog(BuildContext context) {
+    if (Platform.isIOS) {
+      showCupertinoDialog(
+          context: context,
+          builder: (context) => (child: child));
+    }
+    showDialog(context: context, builder: (context) => Dialog());
   }
 }
