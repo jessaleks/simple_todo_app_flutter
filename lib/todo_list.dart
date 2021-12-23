@@ -24,7 +24,7 @@ class _TodoListState extends State<TodoList> {
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       // ignore: prefer_is_empty
-      body: _buildTodoList(),
+      body: Expanded(child: _buildTodoList()),
       floatingActionButton: FloatingActionButton(
           onPressed: () => _displayAddTodoDialog(context),
           tooltip: 'Add a Todo',
@@ -54,6 +54,8 @@ class _TodoListState extends State<TodoList> {
             throw Exception();
           });
     }
-    showDialog(context: context, builder: (context) => Dialog());
+    showDialog(
+        context: context,
+        builder: (context) => (Expanded(child: AlertDialog())));
   }
 }
