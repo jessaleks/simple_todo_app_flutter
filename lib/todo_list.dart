@@ -56,6 +56,17 @@ class _TodoListState extends State<TodoList> {
     }
     showDialog(
         context: context,
-        builder: (context) => (Expanded(child: AlertDialog())));
+        builder: (context) => (Expanded(
+                child: AlertDialog(
+              content: Form(
+                  child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: TextFormField(),
+                  )
+                ],
+              )),
+            ))));
   }
 }
