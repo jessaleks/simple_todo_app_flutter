@@ -1,8 +1,9 @@
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import './models/todo.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+import '../models/todo.dart';
 
 class TodoList extends StatefulWidget {
   const TodoList({Key? key}) : super(key: key);
@@ -24,7 +25,12 @@ class _TodoListState extends State<TodoList> {
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       // ignore: prefer_is_empty
-      body: Expanded(child: _buildTodoList()),
+      body: Expanded(
+          child: Column(
+        children: [
+          _buildTodoList(),
+        ],
+      )),
       floatingActionButton: FloatingActionButton(
           onPressed: () => _displayAddTodoDialog(context),
           tooltip: 'Add a Todo',
@@ -33,9 +39,12 @@ class _TodoListState extends State<TodoList> {
   }
 
   Widget _buildTodoList() {
-    return ListView.builder(
-        itemCount: todos.length,
-        itemBuilder: (context, index) => _buildTodoTile(todos[index]));
+    return ValueListenableBuilder(
+      valueListenable: Hive.box<Todo>("testBox").listenable(),
+      builder: (context, Box<Todo> box, _) => ListView.builder(
+          itemCount: todos.length,
+          itemBuilder: (context, index) => _buildTodoTile(todos[index])),
+    );
   }
 
   Widget _buildTodoTile(Todo todo) {
