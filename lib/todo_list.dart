@@ -47,17 +47,9 @@ class _TodoListState extends State<TodoList> {
 
   // Come up with a way to create a dialogue
   void _displayAddTodoDialog(BuildContext context) {
-    if (Platform.isIOS) {
-      showCupertinoDialog(
-          context: context,
-          builder: (context) {
-            throw Exception();
-          });
-    }
     showDialog(
         context: context,
-        builder: (context) => (Expanded(
-                child: AlertDialog(
+        builder: (context) => (AlertDialog(
               content: Form(
                   child: Column(
                 children: <Widget>[
@@ -67,6 +59,6 @@ class _TodoListState extends State<TodoList> {
                   )
                 ],
               )),
-            ))));
+            )));
   }
 }
