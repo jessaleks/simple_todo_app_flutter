@@ -14,8 +14,6 @@ class TodoList extends StatefulWidget {
 
 class _TodoListState extends State<TodoList> {
   // ignore: unused_field
-  final TextEditingController _textEditingController = TextEditingController();
-  // ignore: unused_field
   final List<Todo> todos = <Todo>[];
 
   String title = "Todo App";
